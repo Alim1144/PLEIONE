@@ -1,0 +1,27 @@
+{
+  "name": "pleione-flower-shop",
+  "version": "1.0.0",
+  "description": "Pleione - Магазин цветов",
+  "main": "index.html",
+  "scripts": {
+    "lint": "eslint *.js --fix",
+    "type-check": "echo 'Type checking skipped for plain JavaScript project'",
+    "dev": "live-server --port=3000 --open",
+    "start": "live-server --port=3000 --open",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": [
+    "flowers",
+    "shop",
+    "pleione"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
+    "eslint": "^9.9.1",
+    "live-server": "^1.2.2",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLEIONE - Админ панель</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  </head>
+
+  <body>
+    <div class="admin-login-container">
+      <div class="admin-login-card">
+        <div class="admin-login-header">
+          <h1>PLEIONE</h1>
+          <p>Админ панель</p>
+        </div>
+
+        <form id="adminLoginForm" class="admin-form">
+          <div class="form-group">
+            <label for="adminEmail">
+              <i class="fas fa-envelope"></i>
+              Email администратора
+            </label>
+            <input type="email" id="adminEmail" required>
+          </div>
+
+          <div class="form-group">
+            <label for="adminPassword">
+              <i class="fas fa-lock"></i>
+              Пароль
+            </label>
+            <input type="password" id="adminPassword" required>
+          </div>
+
+          <button type="submit" class="admin-submit-btn">
+            <i class="fas fa-sign-in-alt"></i>
+            Войти в админ панель
+          </button>
+        </form>
+
+        <div class="admin-login-footer">
+          <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Вернуться на сайт
+          </a>
+        </div>
+      </div>
+
+      <div class="floating-flowers">
+        <div class="flower flower-1">🌹</div>
+        <div class="flower flower-2">🌸</div>
+        <div class="flower flower-3">🌺</div>
+        <div class="flower flower-4">🌼</div>
+      </div>
+    </div>
+
+    <div id="adminNotification"></div>
+
+    <script src="admin-login.js"></script>
+  </body>
+
+</html>

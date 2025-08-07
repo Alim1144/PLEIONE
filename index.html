@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PLEIONE - Магазин цветов</title>
+        <link rel="stylesheet" href="styles.css">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
+
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <div class="nav-container">
+                    <div class="logo">
+                        <h1>PLEIONE</h1>
+                        <span>Цветочная мастерская</span>
+                    </div>
+                    <div class="nav-links" id="navLinks">
+                        <a href="#home">Главная</a>
+                        <a href="#catalog">Каталог</a>
+                        <a href="#about">О нас</a>
+                        <a href="#contact">Контакты</a>
+                        <a href="user-login.html" class="admin-link">Личный кабинет</a>
+                    </div>
+                    <div class="nav-actions">
+                        <div class="cart-icon" onclick="toggleCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </div>
+                        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Создаем букеты вашей мечты</h1>
+                <p>Уникальные композиции из свежих цветов для любого случая</p>
+                <button class="cta-button" onclick="scrollToCatalog()">Смотреть каталог</button>
+            </div>
+            <div class="hero-image">
+                <div class="floating-flowers">
+                    <div class="flower flower-1">🌹</div>
+                    <div class="flower flower-2">🌷</div>
+                    <div class="flower flower-3">🌸</div>
+                    <div class="flower flower-4">🌺</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catalog Section -->
+        <section id="catalog" class="catalog">
+            <div class="container">
+                <h2>Наш каталог цветов</h2>
+                <p>Выберите цветы для создания идеального букета</p>
+
+                <!-- Фильтры и поиск -->
+                <div class="catalog-controls">
+                    <div class="search-filter">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Поиск цветов...">
+                        </div>
+                        <div class="price-filter">
+                            <label>Цена:</label>
+                            <select id="priceFilter">
+                                <option value="">Все цены</option>
+                                <option value="0-150">До 150 ₽</option>
+                                <option value="150-300">150-300 ₽</option>
+                                <option value="300-500">300-500 ₽</option>
+                                <option value="500+">От 500 ₽</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-btn active" onclick="changeView('grid')" title="Сетка">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" onclick="changeView('list')" title="Список">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flowers-grid" id="flowersGrid">
+                    <!-- Flowers will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>О Pleione</h2>
+                        <p>Мы создаем уникальные букеты из свежих цветов премиум качества. Каждый букет - это
+                            произведение искусства, созданное с любовью и вниманием к деталям.</p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-heart"></i>
+                                <h3>Свежие цветы</h3>
+                                <p>Только отборные цветы от проверенных поставщиков</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-magic"></i>
+                                <h3>Уникальный дизайн</h3>
+                                <p>Каждый букет создается индивидуально</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-truck"></i>
+                                <h3>Быстрая доставка</h3>
+                                <p>Доставляем в день заказа</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-flower-tulip"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Свяжитесь с нами</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h3>WhatsApp</h3>
+                                <p>+7 (XXX) XXX-XX-XX</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-telegram"></i>
+                            <div>
+                                <h3>Telegram</h3>
+                                <p>@pleione_flowers</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Адрес</h3>
+                                <p>г. Москва, ул. Цветочная, д. 1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shopping Cart -->
+        <div class="cart-overlay" id="cartOverlay">
+            <div class="cart-modal">
+                <div class="cart-header">
+                    <h3>Ваш букет</h3>
+                    <button class="close-cart" onclick="toggleCart()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be displayed here -->
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>Итого:</span>
+                        <span id="cartTotal">0 ₽</span>
+                    </div>
+                    <button class="order-button" onclick="placeOrder()">
+                        <i class="fab fa-whatsapp"></i>
+                        Заказать через WhatsApp
+                    </button>
+                    <button class="order-button telegram" onclick="placeOrderTelegram()">
+                        <i class="fab fa-telegram"></i>
+                        Заказать через Telegram
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>PLEIONE</h3>
+                    <p>Создаем красоту с 2024 года</p>
+                </div>
+                    <div class="footer-section">
+                        <h4>Контакты</h4>
+                        <p>WhatsApp: +7 (XXX) XXX-XX-XX</p>
+                        <p>Telegram: @pleione_flowers</p>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Режим работы</h4>
+                        <p>Пн-Вс: 9:00 - 21:00</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Pleione. Все права защищены.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>

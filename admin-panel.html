@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLEIONE - Админ панель</title>
+    <link rel="stylesheet" href="admin-panel.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-content">
+        <div class="admin-logo">
+          <h1>PLEIONE</h1>
+          <span>Админ панель</span>
+        </div>
+        <div class="admin-user">
+          <span id="adminEmail">admin@pleione.com</span>
+          <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Выйти
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="admin-container">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar" id="adminSidebar">
+        <nav class="admin-nav">
+          <button class="nav-item active" onclick="showSection('dashboard')">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Дашборд</span>
+          </button>
+          <button class="nav-item" onclick="showSection('products')">
+            <i class="fas fa-box"></i>
+            <span>Товары</span>
+          </button>
+          <button class="nav-item" onclick="showSection('orders')">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Заказы</span>
+          </button>
+          <button class="nav-item" onclick="showSection('discounts')">
+            <i class="fas fa-percentage"></i>
+            <span>Скидки</span>
+          </button>
+          <button class="nav-item" onclick="showSection('settings')">
+            <i class="fas fa-cog"></i>
+            <span>Настройки</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="admin-main">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="admin-section active">
+          <div class="section-header">
+            <h2>Дашборд</h2>
+            <p>Обзор статистики магазина</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-box"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="totalProducts">0</h3>
+                <p>Товаров</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="totalOrders">0</h3>
+                <p>Заказов</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-percentage"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="activeDiscounts">0</h3>
+                <p>Активных скидок</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="stat-content">
+                <h3 id="totalRevenue">0 ₽</h3>
+                <p>Общая выручка</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="admin-section">
+          <div class="section-header">
+            <h2>Управление товарами</h2>
+            <button class="add-btn" onclick="showAddProductModal()">
+              <i class="fas fa-plus"></i>
+              Добавить товар
+            </button>
+          </div>
+
+          <div class="products-container">
+            <div class="products-filters">
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="productSearch" placeholder="Поиск товаров...">
+              </div>
+              <select id="productCategory">
+                <option value="">Все категории</option>
+                <option value="roses">Розы</option>
+                <option value="chrysanthemums">Хризантемы</option>
+                <option value="other">Другие</option>
+              </select>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+              <!-- Products will be loaded here -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders" class="admin-section">
+          <div class="section-header">
+            <h2>Заказы</h2>
+          </div>
+
+          <div class="orders-container">
+            <div class="orders-list" id="ordersList">
+              <!-- Orders will be loaded here -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Discounts Section -->
+        <section id="discounts" class="admin-section">
+          <div class="section-header">
+            <h2>Управление скидками</h2>
+            <button class="add-btn" onclick="showAddDiscountModal()">
+              <i class="fas fa-plus"></i>
+              Добавить скидку
+            </button>
+          </div>
+
+          <div class="discounts-container">
+            <div class="discounts-list" id="discountsList">
+              <!-- Discounts will be loaded here -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="admin-section">
+          <div class="section-header">
+            <h2>Настройки</h2>
+          </div>
+
+          <div class="settings-container">
+            <div class="setting-group">
+              <h3>Информация о магазине</h3>
+              <div class="setting-item">
+                <label>Название магазина</label>
+                <input type="text" id="shopName" value="PLEIONE">
+              </div>
+              <div class="setting-item">
+                <label>Описание</label>
+                <textarea id="shopDescription">Цветочная мастерская</textarea>
+              </div>
+              <div class="setting-item">
+                <label>WhatsApp</label>
+                <input type="text" id="whatsapp" placeholder="+7 (XXX) XXX-XX-XX">
+              </div>
+              <div class="setting-item">
+                <label>Telegram</label>
+                <input type="text" id="telegram" placeholder="@pleione_flowers">
+              </div>
+              <button class="save-btn" onclick="saveSettings()">
+                <i class="fas fa-save"></i>
+                Сохранить настройки
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Modals -->
+    <!-- Add Product Modal -->
+    <div class="modal" id="addProductModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Добавить товар</h3>
+          <button class="close-modal" onclick="closeModal('addProductModal')">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="addProductForm" class="modal-form">
+          <div class="form-group">
+            <label>Название товара</label>
+            <input type="text" id="productName" required>
+          </div>
+          <div class="form-group">
+            <label>Цена (₽)</label>
+            <input type="number" id="productPrice" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Описание</label>
+            <textarea id="productDescription" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Категория</label>
+            <select id="productCategorySelect" required>
+              <option value="roses">Розы</option>
+              <option value="chrysanthemums">Хризантемы</option>
+              <option value="other">Другие</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>URL изображения</label>
+            <input type="url" id="productImage" placeholder="https://example.com/image.jpg">
+          </div>
+          <div class="form-group">
+            <label>Эмодзи</label>
+            <input type="text" id="productEmoji" placeholder="🌹" maxlength="2">
+          </div>
+          <div class="form-actions">
+            <button type="button" class="cancel-btn" onclick="closeModal('addProductModal')">Отмена</button>
+            <button type="submit" class="save-btn">Добавить товар</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add Discount Modal -->
+    <div class="modal" id="addDiscountModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Добавить скидку</h3>
+          <button class="close-modal" onclick="closeModal('addDiscountModal')">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form id="addDiscountForm" class="modal-form">
+          <div class="form-group">
+            <label>Товар</label>
+            <select id="discountProduct" required>
+              <!-- Products will be loaded here -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Процент скидки</label>
+            <input type="number" id="discountPercent" min="1" max="99" required>
+          </div>
+          <div class="form-group">
+            <label>Дата начала</label>
+            <input type="date" id="discountStart" required>
+          </div>
+          <div class="form-group">
+            <label>Дата окончания</label>
+            <input type="date" id="discountEnd" required>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="cancel-btn" onclick="closeModal('addDiscountModal')">Отмена</button>
+            <button type="submit" class="save-btn">Добавить скидку</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="adminNotification"></div>
+
+    <script src="admin-panel.js"></script>
+  </body>
+
+</html>
