@@ -14,6 +14,7 @@ function getFlowers() {
             name: "Роза Кения (лиловая)",
             price: 120,
             description: "Красивая лиловая роза из Кении, 40 см",
+            category: "roses",
             emoji: "🌹",
             image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=300&fit=crop&crop=center"
         },
@@ -22,6 +23,7 @@ function getFlowers() {
             name: "Роза Кения (красная)",
             price: 120,
             description: "Классическая красная роза из Кении, 40 см",
+            category: "roses",
             emoji: "🌹",
             image: "https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=400&h=300&fit=crop&crop=center"
         },
@@ -30,6 +32,7 @@ function getFlowers() {
             name: "Роза Red Naomi",
             price: 250,
             description: "Премиум роза Red Naomi, 60 см",
+            category: "roses",
             emoji: "🌹",
             image: "https://images.unsplash.com/photo-1582793988951-9c88b7d36c46?w=400&h=300&fit=crop&crop=center"
         },
@@ -38,6 +41,7 @@ function getFlowers() {
             name: "Хризантема Алтай",
             price: 300,
             description: "Пышная хризантема Алтай",
+            category: "chrysanthemums",
             emoji: "🌼",
             image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center"
         },
@@ -46,6 +50,7 @@ function getFlowers() {
             name: "Мондиаль 60 см",
             price: 300,
             description: "Элегантная роза Мондиаль, 60 см",
+            category: "roses",
             emoji: "🌹",
             image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center"
         },
@@ -54,6 +59,7 @@ function getFlowers() {
             name: "Мондиаль Французская",
             price: 350,
             description: "Французская роза Мондиаль премиум качества",
+            category: "roses",
             emoji: "🌹",
             image: "https://images.unsplash.com/photo-1582793988951-9c88b7d36c46?w=400&h=300&fit=crop&crop=center"
         },
@@ -62,6 +68,7 @@ function getFlowers() {
             name: "Кантри Блюз",
             price: 300,
             description: "Уникальная роза Кантри Блюз, 50-60 см",
+            category: "roses",
             emoji: "🌹",
             image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center"
         },
@@ -70,6 +77,7 @@ function getFlowers() {
             name: "Гортензия Кения",
             price: 550,
             description: "Пышная гортензия из Кении",
+            category: "hydrangeas",
             emoji: "🌸",
             image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center"
         },
@@ -78,6 +86,7 @@ function getFlowers() {
             name: "Диантус 60 см",
             price: 150,
             description: "Нежный диантус, 60 см",
+            category: "dianthus",
             emoji: "🌺",
             image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center"
         },
@@ -86,6 +95,7 @@ function getFlowers() {
             name: "Пинк Охара Французская",
             price: 350,
             description: "Французская роза Пинк Охара",
+            category: "roses",
             emoji: "🌹",
             image: "https://images.unsplash.com/photo-1582793988951-9c88b7d36c46?w=400&h=300&fit=crop&crop=center"
         }
@@ -164,15 +174,27 @@ function loadUserCart() {
 function setupFilters() {
     const searchInput = document.getElementById('searchInput');
     const priceFilter = document.getElementById('priceFilter');
+    const categoryTabs = document.getElementById('categoryTabs');
 
     searchInput.addEventListener('input', filterFlowers);
     priceFilter.addEventListener('change', filterFlowers);
+    if (categoryTabs) {
+        categoryTabs.addEventListener('click', (e) => {
+            const btn = e.target.closest('.category-tab');
+            if (!btn) return;
+            document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterFlowers();
+        });
+    }
 }
 
 // Фильтрация цветов
 function filterFlowers() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const priceRange = document.getElementById('priceFilter').value;
+    const activeCategoryBtn = document.querySelector('.category-tab.active');
+    const activeCategory = activeCategoryBtn ? activeCategoryBtn.getAttribute('data-category') : '';
     const flowers = getFlowers();
 
     filteredFlowers = flowers.filter(flower => {
@@ -183,11 +205,16 @@ function filterFlowers() {
         // Фильтр по цене
         let matchesPrice = true;
         if (priceRange) {
-            const [min, max] = priceRange.split('-').map(p => p === '+' ? Infinity : parseInt(p));
-            matchesPrice = flower.price >= min && (max === Infinity ? true : flower.price <= max);
+            const [minStr, maxStr] = priceRange.split('-');
+            const min = parseInt(minStr) || 0;
+            const max = parseInt(maxStr) || Infinity;
+            matchesPrice = flower.price >= min && flower.price <= max;
         }
 
-        return matchesSearch && matchesPrice;
+        // Фильтр по категории
+        const matchesCategory = !activeCategory || (flower.category === activeCategory);
+
+        return matchesSearch && matchesPrice && matchesCategory;
     });
 
     renderFilteredFlowers();
@@ -407,10 +434,10 @@ function updateCartDisplay() {
 
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
-        
+
         // Проверяем, есть ли скидка
         const hasDiscount = item.originalPrice && item.originalPrice > item.price;
-        
+
         cartItem.innerHTML = `
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>

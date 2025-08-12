@@ -63,6 +63,30 @@
             <div class="container">
                 <h2>Наш каталог цветов</h2>
                 <p>Выберите цветы для создания идеального букета</p>
+                <!-- Подразделы каталога: категории -->
+                <div class="category-tabs" id="categoryTabs">
+                    <button class="category-tab active" data-category="">Все</button>
+                    <!-- Декор -->
+                    <button class="category-tab" data-category="decor-wedding">Свадьба</button>
+                    <button class="category-tab" data-category="decor-birthday">День рождения</button>
+                    <button class="category-tab" data-category="decor-bachelor">Мальчишник</button>
+                    <button class="category-tab" data-category="decor-bachelorette">Девичник</button>
+                    <button class="category-tab" data-category="decor-business">Бизнес встречи</button>
+                    <button class="category-tab" data-category="decor-holidays">Праздники</button>
+                    <button class="category-tab" data-category="decor-romantic">Романтический вечер</button>
+                    <!-- Подарки -->
+                    <button class="category-tab" data-category="gifts-jewelry">Украшения</button>
+                    <button class="category-tab" data-category="gifts-confectionery">Кондитерка</button>
+                    <button class="category-tab" data-category="gifts-certificates">Сертификаты</button>
+                    <!-- Растения -->
+                    <button class="category-tab" data-category="potted-plants">Горшечные растения</button>
+                    <!-- Цветы (виды) -->
+                    <button class="category-tab" data-category="roses">Розы</button>
+                    <button class="category-tab" data-category="chrysanthemums">Хризантемы</button>
+                    <button class="category-tab" data-category="hydrangeas">Гортензии</button>
+                    <button class="category-tab" data-category="dianthus">Диантусы</button>
+                    <button class="category-tab" data-category="other">Другие</button>
+                </div>
 
                 <!-- Фильтры и поиск -->
                 <div class="catalog-controls">
@@ -75,10 +99,9 @@
                             <label>Цена:</label>
                             <select id="priceFilter">
                                 <option value="">Все цены</option>
-                                <option value="0-150">До 150 ₽</option>
-                                <option value="150-300">150-300 ₽</option>
-                                <option value="300-500">300-500 ₽</option>
-                                <option value="500+">От 500 ₽</option>
+                                <option value="0-4000">До 4 000 ₽</option>
+                                <option value="4000-8000">4 000–8 000 ₽</option>
+                                <option value="15000-20000">15 000–20 000 ₽</option>
                             </select>
                         </div>
                     </div>
@@ -197,11 +220,11 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
-                            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>PLEIONE</h3>
-                    <p>Создаем красоту с 2024 года</p>
-                </div>
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>PLEIONE</h3>
+                        <p>Создаем красоту с 2024 года</p>
+                    </div>
                     <div class="footer-section">
                         <h4>Контакты</h4>
                         <p>WhatsApp: +7 (XXX) XXX-XX-XX</p>
