@@ -212,7 +212,18 @@ function filterFlowers() {
         }
 
         // Фильтр по категории
-        const matchesCategory = !activeCategory || (flower.category === activeCategory);
+        let matchesCategory = true;
+        if (activeCategory) {
+            if (activeCategory.startsWith('flowers-price-')) {
+                // Категории цен для цветов: flowers-price-min-max
+                const parts = activeCategory.split('-');
+                const min = parseInt(parts[2]) || 0;
+                const max = parseInt(parts[3]) || Infinity;
+                matchesCategory = flower.price >= min && flower.price <= max;
+            } else {
+                matchesCategory = flower.category === activeCategory;
+            }
+        }
 
         return matchesSearch && matchesPrice && matchesCategory;
     });

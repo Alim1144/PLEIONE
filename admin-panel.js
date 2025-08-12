@@ -374,7 +374,7 @@ function loadSettings() {
     const settings = getSettings();
     
     document.getElementById('shopName').value = settings.shopName || 'PLEIONE';
-    document.getElementById('shopDescription').value = settings.shopDescription || 'Цветочная мастерская';
+    document.getElementById('shopDescription').value = settings.shopDescription || 'Цветы&Декор';
     document.getElementById('whatsapp').value = settings.whatsapp || '';
     document.getElementById('telegram').value = settings.telegram || '';
 }
